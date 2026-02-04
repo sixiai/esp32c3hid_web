@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ESP32-C3 键位配置</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <div class="title">ESP32-C3 键位配置</div>
+      <div class="subtitle">USB 串口配置 | 支持 Fn 层 / 宏 / 组合键</div>
+    </div>
+    <div class="status" id="status">未连接</div>
+  </header>
+
+  <section class="topbar">
+    <div class="btns">
+      <button id="btnConnect">连接设备</button>
+      <button id="btnRead" disabled>读取配置</button>
+      <button id="btnWrite" disabled>写入 RAM</button>
+      <button id="btnSave" disabled>保存到 Flash</button>
+      <button id="btnLoad" disabled>从 Flash 读取</button>
+      <button id="btnReset" disabled>恢复默认并写入</button>
+    </div>
+    <div class="result-box" id="resultBox">等待操作…</div>
+  </section>
+
+  <section class="layout">
+    <div class="pane">
+      <div class="pane-title">默认层(Base)</div>
+      <div class="grid" id="gridBase"></div>
+    </div>
+    <div class="pane">
+      <div class="pane-title">Fn 层</div>
+      <div class="grid" id="gridFn"></div>
+    </div>
+  </section>
+
+  <section class="editor">
+      <div class="editor-title" id="editorTitle">键位</div>
+
+      <label>动作类型
+        <select id="actionType">
+          <option value="0">无</option>
+          <option value="1">普通键</option>
+          <option value="2">组合键</option>
+          <option value="3">宏</option>
+        </select>
+      </label>
+
+      <fieldset>
+        <legend>修饰键</legend>
+        <label><input type="checkbox" class="mod" data-bit="0"> 左Ctrl</label>
+        <label><input type="checkbox" class="mod" data-bit="1"> 左Shift</label>
+        <label><input type="checkbox" class="mod" data-bit="2"> 左Alt</label>
+        <label><input type="checkbox" class="mod" data-bit="3"> 左Win</label>
+      </fieldset>
+
+      <label>按键(最多 6 个，支持 A / Enter / F1)
+        <input id="keysInput" placeholder="例如: A, B, Enter" />
+      </label>
+      <div class="capture-row">
+        <button id="btnCapture" type="button">录入按键</button>
+        <span id="captureHint">点击后按下键盘</span>
+      </div>
+
+      <div class="macro">
+        <div class="macro-title">宏步骤(最多 16 步)</div>
+        <table id="macroTable">
+          <thead>
+            <tr><th>操作</th><th>修饰</th><th>按键</th><th>延迟(ms)</th><th></th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="btnAddStep">添加步骤</button>
+      </div>
+
+      <button id="btnApply">应用到当前键</button>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
